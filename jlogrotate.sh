@@ -1,5 +1,6 @@
 #!/bin/bash
-# Rotate Java Server log files (JBoss, Tomcat, ...)
+# Rotate Java Server log files (JBoss, Tomcat, ...).
+# This script is probably called by cron.
 #
 # Copyright (c) 2012 Malte S. Stretz, Silpion IT-Solutions GmbH
 
@@ -9,10 +10,11 @@ shopt -s nullglob
 logname=logs/server.log
 zcmd=gzip
 zext=gz
+keep=
 force=
 verbose=
 
-while getopts 'jfv' OPTNAME; do
+while getopts 'jfk:v' OPTNAME; do
     case "$OPTNAME" in
        j)
            zcmd=bzip2
@@ -23,6 +25,9 @@ while getopts 'jfv' OPTNAME; do
        ;;
        v)
            verbose=v
+       ;;
+       k)
+           keep=$OPTARG
        ;;
     esac
 done
@@ -35,3 +40,7 @@ fi
 for logfile in $logname.????-??-??; do
     $zcmd -9$force$verbose "$logfile"
 done
+
+if [ "$keep" ]; then
+    ls -1 $logname.????-??-??.$zext | sort -r | tail -n +$keep | xargs -d '\n' rm
+fi
