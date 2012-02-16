@@ -47,7 +47,7 @@ done
 
 if [ "$keep" ]; then
     if [ "$verbose" ]; then
-        echo "purging obsolete $logname.zext..."
+        echo "purging obsolete $logname.$zext..."
     fi
     ls -1 $logname.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm $force $verbose
 fi
