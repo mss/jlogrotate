@@ -36,11 +36,19 @@ shift $((OPTIND-1))
 if [ "$1" ]; then
     logname=$1
 fi
+logname="$logname.????-??-??"
 
-for logfile in $logname.????-??-??; do
+if [ "$verbose" ]; then
+    echo "compressing $logname..."
+fi
+for logfile in $logname; do
     $zcmd -9$force$verbose "$logfile"
 done
 
 if [ "$keep" ]; then
-    ls -1 $logname.????-??-??.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm
+    if [ "$verbose" ]; then
+        echo "purging obsolete $logname.zext..."
+    fi
+    ls -1 $logname.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm
 fi
+
