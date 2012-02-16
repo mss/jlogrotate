@@ -42,5 +42,5 @@ for logfile in $logname.????-??-??; do
 done
 
 if [ "$keep" ]; then
-    ls -1 $logname.????-??-??.$zext | sort -r | tail -n +$keep | xargs -d '\n' rm
+    ls -1 $logname.????-??-??.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm
 fi
