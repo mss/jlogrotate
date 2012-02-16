@@ -21,10 +21,10 @@ while getopts 'jfk:v' OPTNAME; do
            zext=bz2
        ;;
        f)
-           force=f
+           force=-f
        ;;
        v)
-           verbose=v
+           verbose=-v
        ;;
        k)
            keep=$OPTARG
@@ -42,13 +42,13 @@ if [ "$verbose" ]; then
     echo "compressing $logname..."
 fi
 for logfile in $logname; do
-    $zcmd -9$force$verbose "$logfile"
+    $zcmd -9 $force $verbose "$logfile"
 done
 
 if [ "$keep" ]; then
     if [ "$verbose" ]; then
         echo "purging obsolete $logname.zext..."
     fi
-    ls -1 $logname.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm
+    ls -1 $logname.$zext | sort -r | tail -n +$keep | xargs -d '\n' -r rm $force $verbose
 fi
 

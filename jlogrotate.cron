@@ -1,1 +1,1 @@
-0 1 * * * /usr/local/bin/jlogrotate.sh /var/log/jboss/server.log
+0 1 * * * /usr/local/bin/jlogrotate.sh -j -v -k 180 /var/log/jboss/server.log
