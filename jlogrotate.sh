@@ -1,8 +1,8 @@
 #!/bin/bash
-# Rotate Java Server log files (JBoss, Tomcat, ...).
+# Rotate and purge old Java Server log files (JBoss, Tomcat, ...).
 # This script is probably called by cron.
 #
-# Copyright (c) 2012 Malte S. Stretz, Silpion IT-Solutions GmbH
+# Copyright (c) 2012 Malte S. Stretz, Silpion IT-Solutions GmbH <http://www.silpion.de>
 
 set -e
 shopt -s nullglob
